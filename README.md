@@ -17,3 +17,9 @@ This is a client application for downloading binary data from a glitchy HTTP ser
 - Increment range by specified data chunk.
 - It repeats the process until a data chunk (Content-length) from response is smaller than chunk given in request
 - Verify the SHA-256 hash of downloaded data trough user input of server generated hash.
+
+## How to Test
+
+- Start the provided Python server in a terminal.
+- In this repo’s root, build and run the client
+- When the download is done, paste server generated hash in the terminal to verify the download.
