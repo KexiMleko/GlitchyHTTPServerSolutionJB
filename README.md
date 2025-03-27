@@ -16,4 +16,4 @@ This is a client application for downloading binary data from a glitchy HTTP ser
 - The client sends GET request with the Range header to fetch missing data chunks.
 - Increment range by specified data chunk.
 - It repeats the process until a data chunk (Content-length) from response is smaller than chunk given in request
-- Verify the SHA-256 hash of downloaded data.
+- Verify the SHA-256 hash of downloaded data trough user input of server generated hash.

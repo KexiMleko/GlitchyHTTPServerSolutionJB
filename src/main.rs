@@ -10,14 +10,10 @@ fn main() {
 
     let mut data: Vec<u8> = Vec::new();
     let mut length: usize = 0;
-
-    let mut server_hash: String=String::new();
-    println!("Paste server generated hash");
-    stdin().read_line(&mut server_hash).expect("Failed to get user input for server generated hash");
-
+    
     loop {
         data.extend_from_slice(&get_range_data(range_start, range_end,&mut length));
-        println!("Content length: {}",length);
+        println!("Downloaded content length: {}",length);
 
         if length as i32!=CHUNK_SIZE{
             break;
@@ -28,9 +24,17 @@ fn main() {
     let mut hasher = Sha256::new();
     hasher.update(data);
     let hash_result = hasher.finalize();
-    
-    if format!("{:x}",hash_result)==server_hash.trim() {
-        println!("Successful download")
+
+    let hash_result_str: String=format!("{:x}",hash_result);
+
+    println!("Hash of downloaded data: {:?}",hash_result_str);
+
+    let mut server_hash: String=String::new();
+    println!("Paste server generated hash to confirm the download");
+    stdin().read_line(&mut server_hash).expect("Failed to get user input for server generated hash");
+
+    if hash_result_str==server_hash.trim() {
+        println!("Successful download!")
     }
     else{
         println!("Incomplete download")
@@ -52,7 +56,7 @@ fn get_range_data(range_start: i32, range_end: i32,length:&mut usize) -> Vec<u8>
     let mut body = Vec::new();
     loop {
         line.clear();
-        response.read_line(&mut line).expect("error reading line");
+        response.read_line(&mut line).expect("Error reading line");
 
         let trimmed_line = line.trim();
 
@@ -64,6 +68,6 @@ fn get_range_data(range_start: i32, range_end: i32,length:&mut usize) -> Vec<u8>
             }
         }
     }
-    response.read_to_end(&mut body).expect("error reading body");
+    response.read_to_end(&mut body).expect("Error reading body");
     body
 }
