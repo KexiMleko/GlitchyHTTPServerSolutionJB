@@ -21,5 +21,6 @@ This is a client application for downloading binary data from a glitchy HTTP ser
 ## How to Test
 
 - Start the provided Python server in a terminal.
-- In this repo’s root, build and run the client
-- When the download is done, paste server generated hash in the terminal to verify the download.
+- In this repo’s root, build and run the client using cargo run, executable will eventually run and start downloading the data and printing downloaded chunk lengths.
+- When the full download is done, paste server generated hash in the terminal to verify the download.
+- Status of the downloaded will be printed in the terminal (successful or incomplete).
